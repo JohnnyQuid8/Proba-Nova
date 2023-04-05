@@ -1,0 +1,12 @@
+.container{
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    gap: 30px;
+    border: 2px solid blue;
+}
+ .beforeClick{
+    width: 100px;
+    height: 100px;
+    
+}
