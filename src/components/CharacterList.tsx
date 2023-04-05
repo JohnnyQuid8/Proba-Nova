@@ -1,7 +1,8 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import "../styles/CharacterList.scss"
-import { ModalContext } from "../pages/CharacterListPage";
+// import { ModalContext } from "../pages/CharacterListPage";
+import {Modal} from "antd"
 interface Character {
   id: number,
   name: string,
@@ -12,7 +13,7 @@ interface Character {
   episode: [],
   gender: string,
   image: string,
-  location: {},
+  location?: {name: string},
   origin: {},
   url: string
   onClick?: ()=>boolean
@@ -21,8 +22,9 @@ interface Character {
 
 
 const CharacterList = () => {
-  const [characters, setCharacters] = React.useState<Character[]>([])
-  const modalContext = React.useContext(ModalContext);
+  const [characters, setCharacters] = React.useState<Character[]>([]);
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [newState, setNewState] = React.useState<Character>()
   useEffect(() =>{
     async function fetchData() {
       try {
@@ -36,13 +38,41 @@ const CharacterList = () => {
     fetchData()
   },[])
   console.log(characters)
+
+  
   return (
   <div className="container" >
        {characters.map((item)=>
-      <button onClick={()=>modalContext.openModal()} key={item.id}>
+      <button  key={item.id} 
+      onClick={()=>{
+        setIsModalVisible(!isModalVisible)
+        setNewState(item)}}>
+      
         <img className="beforeClick" src={item.image}/>
+        <Modal 
+          open={isModalVisible}
+          onOk={() => {
+            setIsModalVisible(false)
+          }}
+          onCancel={() => {
+            console.log(isModalVisible)
+            setIsModalVisible(false)}}
+            >
+              <p>{newState?.name}</p>
+              <p>{newState?.gender}</p>
+              <p>{newState?.species}</p>
+              <p>{newState?.location?.name}</p>
+            
+              <p>{newState?.name}</p>
+
+              
+              </Modal>
         </button>
-     )}   
+        
+     )
+     
+     } 
+     
   </div>
   )
 };

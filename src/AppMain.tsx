@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import CharacterListPage from "./pages/CharacterListPage";
 import { LoginContext } from "./App";
-
+import Favorites from "./pages/Favorites";
 const AppMain = () => {
   const loginContext = React.useContext(LoginContext);
 
@@ -18,6 +18,7 @@ const AppMain = () => {
           element={<CharacterListPage />}
         ></Route>
       )}
+      <Route path="favorites" element={<Favorites/>}></Route>
     </Routes>
   );
 };
