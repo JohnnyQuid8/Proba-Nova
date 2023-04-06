@@ -3,14 +3,17 @@ import AppMain from "./AppMain";
 import { useNavigate } from "react-router-dom";
 
 export interface LoginContext {
-  isLogedIn: boolean;
-  login: () => void;
-  logout: () => void;
+  isLogedIn: boolean,
+  login: () => void,
+  logout: () => void,
 }
 
-// We dont want to type it as nullable, to avoid unescessery checks.
-// @ts-ignore
-export const LoginContext = React.createContext<LoginContext>(undefined);
+const initalLogin: LoginContext = {
+  isLogedIn: false,
+  login: () => {},
+  logout: () => {},
+} 
+export const LoginContext = React.createContext<LoginContext>(initalLogin);
 
 export function App() {
   const navigate = useNavigate();

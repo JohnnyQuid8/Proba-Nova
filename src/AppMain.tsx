@@ -4,9 +4,10 @@ import LoginPage from "./pages/LoginPage";
 import CharacterListPage from "./pages/CharacterListPage";
 import { LoginContext } from "./App";
 import Favorites from "./pages/Favorites";
+import { FavoritesContext } from "./components/CharacterInfoModal";
 const AppMain = () => {
   const loginContext = React.useContext(LoginContext);
-
+  const favoritescontext = React.useContext(FavoritesContext)
   return (
     <Routes>
       {!loginContext.isLogedIn && (
@@ -18,7 +19,7 @@ const AppMain = () => {
           element={<CharacterListPage />}
         ></Route>
       )}
-      <Route path="favorites" element={<Favorites/>}></Route>
+      {FavoritesContext && <Route path="favorites" element={<Favorites/>}></Route>}
     </Routes>
   );
 };
