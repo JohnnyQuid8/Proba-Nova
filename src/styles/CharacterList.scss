@@ -1,12 +1,18 @@
 .container{
     display: flex;
-    flex-direction: row;
-    align-content: space-between;
-    gap: 30px;
+    flex-direction: column;
+    gap: 20px;
     border: 2px solid blue;
 }
  .beforeClick{
     width: 100px;
     height: 100px;
     
+}
+
+.login-button {
+    background-color: lightslategray;
+    margin-left: 25%;
+    margin-top: 10%;
+    width: 50%;
 }

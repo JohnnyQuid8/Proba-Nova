@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Form, Input, Button } from "antd";
 import { LoginContext } from "../App";
-
+import "../styles/LoginPage.scss"
 const DUMMY_USERNAME = "FWW";
 const DUMMY_PASSWORD = "nikola";
 
@@ -21,8 +21,8 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <>
-      <Form onFinish={onFinish}>
+    <div className="login-container">
+      <Form className="form" onFinish={onFinish}>
         <Input
           placeholder="username"
           value={username}
@@ -37,9 +37,9 @@ const LoginPage: React.FC = () => {
           required
           onChange={(event) => setPassword(event.target.value)}
         />
-        <Button htmlType="submit">LOG IN</Button>
+        <Button className="login-button" htmlType="submit">LOG IN</Button>
       </Form>
-    </>
+    </div>
   );
 };
 

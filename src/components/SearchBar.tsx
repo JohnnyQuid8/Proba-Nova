@@ -24,7 +24,8 @@ const SearchBar = ({ characters, setFilteredCharacters }: Props) => {
               case "gender":
               case "species":
               case "status": {
-                return item![category!].toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+                
+                return item[category].toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
               }
               default: return false
             }

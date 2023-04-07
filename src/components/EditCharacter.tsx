@@ -1,13 +1,25 @@
-import {Form, Input, Select} from "antd"
+import {Form, Input, Select, Modal} from "antd"
+import { Character } from "../pages/CharacterListPage"
 
-const EditCharacter = () => {
+
+type Props = {
+    children?: React.ReactNode,
+    character: Character,
+    setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>,
+    isModalVisible: boolean,
+}
+
+const EditCharacter = ({ character, isModalVisible, setIsModalVisible }: Props) => {
     return(
         <Form>
-            <Input>Name</Input>
-            <Input>Species</Input>
-            <Select>Status</Select>
-            <Select>Gender</Select>
-
+            <Modal
+             open={isModalVisible}
+            >
+            <Input value={character!.name}></Input>
+            <Input value={character!.name}></Input>
+            <Select>{character!.status}</Select>
+            <Select>{character!.gender}</Select>
+            </Modal>
         </Form>
     )
 }
