@@ -1,19 +1,32 @@
-import { Input, Button } from "antd"
+import {Button } from "antd"
 import React from "react";
-import { Character } from "../pages/CharacterListPage";
+import { Character } from "../AppMain";
+import {DebounceInput} from 'react-debounce-input';
+import "../styles/main.scss"
 
 type Props = {
   characters: Character[]
   setFilteredCharacters: React.Dispatch<React.SetStateAction<Character[]>>
 }
 
-const SearchBar = ({ characters, setFilteredCharacters }: Props) => {
+  const SearchBar = ({ characters, setFilteredCharacters }: Props) => {
   const [searchTerm, setSearchTerm] = React.useState<string>("");
   const [category, setCategory] = React.useState<keyof Character>("name");
  
+  
   return (
-    <div>
-      <Input
+    <div className="categories">
+      <div className="categories__buttons"> 
+      <Button onClick={() => setCategory("name")}>NAME</Button>
+      <Button onClick={() => setCategory("species")}>SPECIES</Button>
+      <Button onClick={() => setCategory("status")}>STATUS</Button>
+      <Button onClick={() => setCategory("gender")}>GENDER  </Button>
+      </div>
+      <DebounceInput
+        
+        className="search-bar"
+        debounceTimeout={1000}
+        minLength={0}
         value={searchTerm}
         placeholder="Search"
         onChange={(event) => {
@@ -25,17 +38,14 @@ const SearchBar = ({ characters, setFilteredCharacters }: Props) => {
               case "species":
               case "status": {
                 
-                return item[category].toLocaleLowerCase().includes(searchTerm.toLocaleLowerCase())
+                return item[category].toLowerCase().trim().includes(searchTerm.toLowerCase().trim())
               }
               default: return false
             }
           }))
         }}>
-      </Input>
-      <Button onClick={() => setCategory("name")}>NAME</Button>
-      <Button onClick={() => setCategory("species")}>SPECIES</Button>
-      <Button onClick={() => setCategory("status")}>STATUS</Button>
-      <Button onClick={() => setCategory("gender")}>GENDER</Button>
+      </DebounceInput>
+      
     </div>
   )
 }

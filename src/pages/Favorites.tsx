@@ -1,40 +1,128 @@
-import React from "react"
-import { FavoritesContext } from "../AppMain"
-import {Button} from "antd"
-import EditCharacter from "../components/EditCharacter"
-import { Character } from "../pages/CharacterListPage"
+// import React from "react";
+// import { FavoritesContext } from "../AppMain";
+// import { Button } from "antd";
+// import EditCharacter from "../components/EditCharacter";
+// import { Character } from "../AppMain";
 
-const Favorites = ({}) => {
-    const favoritescontext = React.useContext(FavoritesContext)
-    const [isModalVisible, setIsModalVisible] = React.useState(false);
-    const [character, setCharacter] = React.useState<Character>()
-    return (
-        <div>
-            {favoritescontext.favorites.map(item=>{
-                return <ul key={`${item} + ${item.id}`}> 
-                        <img key={item.id} src={item.image}/>
-                         <li>{item.name}</li>
-                        <li>{item.gender}</li>
-                         <li>{item.species}</li>
-                        <li>{item.location?.name}</li>
-                        <Button onClick={()=>favoritescontext.removeFavorite(item)}>REMOVE</Button>
-                        <Button key={`${item} + ${item.status}`}
-                            onClick={()=>{
-                            setIsModalVisible(prev=>!prev)
-                            console.log(isModalVisible)
-                            setCharacter(item)
-                        }}>
-                        {character && <EditCharacter 
-                        character={character!}
-                        isModalVisible={isModalVisible} 
-                        setIsModalVisible={setIsModalVisible} 
-            >
-          </EditCharacter>}
-          EDIT</Button>
-                        </ul>
+// type Props = {
+//   characters: Character[];
+// };
 
-            })}
-        </div>
-    )
-}
+// const Favorites = ({ characters }: Props) => {
+//   const favoritescontext = React.useContext(FavoritesContext);
+//   const [isModalVisible, setIsModalVisible] = React.useState(false);
+//   const [characterId, setCharacterId] = React.useState<number | null>(null);
+  
+//   return (
+//     <div>
+//       {characters.map((character) => {
+//         const found = favoritescontext.favoriteIds.indexOf(character.id) !== -1;
+//         if (found) {
+//           return (
+//             <ul key={`${character} + ${character.id}`}>
+//               <img key={character.id} src={character.image} />
+//               <li>{character.name}</li>
+//               <li>{character.gender}</li>
+//               <li>{character.species}</li>
+//               <li>{character.location?.name}</li>
+//               <Button
+//                 onClick={() => favoritescontext.removeFavorite(character.id)}
+//               >
+//                 REMOVE
+//               </Button>
+//               <Button
+//                 key={`${character} + ${character.status}`}
+//                 onClick={(e) => {
+//                   setIsModalVisible((prev) => !prev);
+//                   console.log(isModalVisible);
+//                   setCharacterId(character.id);
+//                 }}
+//               >
+//                 EDIT
+//               </Button>
+//             </ul>
+//           );
+//         } else {
+//           return null;
+//         }
+//       })}
+//       {characterId && (
+//         <EditCharacter
+//           character={
+//             characters.find((character) => characterId === character.id)!
+//           }
+//           isModalVisible={isModalVisible}
+//           setIsModalVisible={setIsModalVisible}
+//         ></EditCharacter>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Favorites;
+
+
+import React from "react";
+import { FavoritesContext } from "../AppMain";
+import { Button } from "antd";
+import EditCharacter from "../components/EditCharacter";
+import { Character } from "../AppMain";
+
+type Props = {
+  characters: Character[];
+};
+
+const Favorites = ({ characters }: Props) => {
+  const favoritescontext = React.useContext(FavoritesContext);
+  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [characterId, setCharacterId] = React.useState<number | null>(null);
+
+
+
+  return (
+    <div>
+      {characters.map((character) => {
+        const found = favoritescontext.favoriteIds.indexOf(character.id) !== -1;
+        if (found) {
+          return (
+            <ul key={`${character} + ${character.id}`}>
+              <img key={character.id} src={character.image} />
+              <li>{character.name}</li>
+              <li>{character.gender}</li>
+              <li>{character.species}</li>
+              <li>{character.location?.name}</li>
+              <Button
+                onClick={() => favoritescontext.removeFavorite(character.id)}
+              >
+                REMOVE
+              </Button>
+              <Button
+                key={`${character} + ${character.status}`}
+                onClick={(e) => {
+                  setIsModalVisible((prev) => !prev);
+                  console.log(isModalVisible);
+                  setCharacterId(character.id);
+                }}
+              >
+                EDIT
+              </Button>
+            </ul>
+          );
+        } else {
+          return null;
+        }
+      })}
+      {characterId && (
+        <EditCharacter
+          character={
+            characters.find((character) => characterId === character.id)!
+          }
+          isModalVisible={isModalVisible}
+          setIsModalVisible={setIsModalVisible}
+        ></EditCharacter>
+      )}
+    </div>
+  );
+};
+
 export default Favorites;

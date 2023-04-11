@@ -1,6 +1,7 @@
 import React from "react";
-import "../styles/CharacterList.scss"
-import { Character } from "../pages/CharacterListPage";
+import "../styles/main.scss"
+import { Character } from "../AppMain"
+
 import CharacterInfoModal from "./CharacterInfoModal";
 
 type Props = {
@@ -11,18 +12,19 @@ const CharacterList = ({ characters }: Props) => {
   const [isModalVisible, setIsModalVisible] = React.useState(false);
   const [character, setCharacter] = React.useState<Character>()
 
-
+console.log(character)
 
   return (
-    <div className="container" >
+    <div className="characters" >
       {characters.map((item) =>
-        <button key={item.id}
+        <div key={item.id}
+        className="characters__list"
           onClick={() => {
             setIsModalVisible(!isModalVisible)
             setCharacter(item)
           }}>
           <img alt="rick-and-morty-character"
-          className="beforeClick" src={item.image} />
+          className="characters__list--image" src={item.image} />
           {character && <CharacterInfoModal 
           character={character!}
           isModalVisible={isModalVisible} 
@@ -30,7 +32,7 @@ const CharacterList = ({ characters }: Props) => {
             >
           </CharacterInfoModal>}
           
-        </button>
+        </div>
       )}
     </div>
   )

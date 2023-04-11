@@ -1,7 +1,9 @@
 import React, { useContext } from "react";
 import { Form, Input, Button } from "antd";
 import { LoginContext } from "../App";
-import "../styles/LoginPage.scss"
+import "../styles/main.scss"
+
+
 const DUMMY_USERNAME = "FWW";
 const DUMMY_PASSWORD = "nikola";
 
@@ -21,9 +23,10 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="login-container">
-      <Form className="form" onFinish={onFinish}>
+    <div className="login">
+      <Form className="login__form" onFinish={onFinish}>
         <Input
+          className="login__form--field"
           placeholder="username"
           value={username}
           id="username"
@@ -31,13 +34,14 @@ const LoginPage: React.FC = () => {
           onChange={(event) => setUsername(event.target.value)}
         />
         <Input.Password
+          className="login__form--field"
           placeholder="password"
           id="password"
           value={password}
           required
           onChange={(event) => setPassword(event.target.value)}
         />
-        <Button className="login-button" htmlType="submit">LOG IN</Button>
+        <Button className="login__form--button" htmlType="submit">LOG IN</Button>
       </Form>
     </div>
   );

@@ -1,0 +1,25 @@
+.categories{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    &__buttons{
+        display: flex;
+        flex-wrap: wrap;
+        button{
+            width: 6.2rem;
+            margin: 0.3rem 0;
+            &:not(:last-child){
+        
+                margin-right: 0.5rem;
+            }
+        }
+    }
+}
+.search-bar{
+    border-radius: 0.5rem;
+    height: 1.8rem;
+    width: 5rem;
+    margin-right: 1rem;
+
+}
