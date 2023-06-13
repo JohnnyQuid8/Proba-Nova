@@ -1,5 +1,5 @@
 import { Form, Input, Select, Modal, Button } from "antd";
-import { Character, FavoritesContext } from "../AppMain";
+import { Character, FavoritesContext } from "../../AppMain";
 import React from "react";
 
 type Props = {

@@ -1,12 +1,12 @@
-
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import LoginPage from "./pages/LoginPage";
-import CharacterListPage from "./pages/CharacterListPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import CharacterListPage from "./pages/CharacterListPage/CharacterListPage";
 import { LoginContext } from "./App";
-import Favorites from "./pages/Favorites";
-import Header from "./components/Header";
-import axios from "axios";
+import Favorites from "./pages/Favorites/Favorites";
+import Header from "./components/Header/Header";
+import { characterListRepo } from "./modules/charactersList/charactersList.repo";
+import { characterListService } from "./modules/charactersList/charactersList.service";
 
 export interface FavoritesContext {
   favoriteIds: number[];
@@ -37,9 +37,8 @@ export type Character = {
   url: string;
 };
 
-export const FavoritesContext = React.createContext<FavoritesContext>(
-  initialFavorites
-);
+export const FavoritesContext =
+  React.createContext<FavoritesContext>(initialFavorites);
 
 const AppMain = () => {
   const [characters, setCharacters] = React.useState<Character[]>([]);
@@ -47,11 +46,8 @@ const AppMain = () => {
   React.useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(
-          "https://rickandmortyapi.com/api/character"
-        );
-        const data = response.data;
-        setCharacters(data.results);
+        const response = await characterListService.fetchAllCharacters();
+        setCharacters(response);
       } catch (error) {
         console.log(error);
       }
@@ -77,13 +73,12 @@ const AppMain = () => {
       });
     },
     removeFavorite: (characterId) => {
-      setFavoriteIds(favoriteIds.filter((item) => item !== characterId));
+      setFavoriteIds(characterListService.setFavoriteIds(favoriteIds, characterId));
     },
-    updateCharacter: (character) => {
-      setCharacters([
-        ...characters.filter((item) => item.id !== character.id),
-        character,
-      ]);
+    updateCharacter: (singleCharacter) => {
+      setCharacters(
+        characterListService.setUpdatedCharacter(characters, singleCharacter)
+      );
     },
   };
 
@@ -95,7 +90,10 @@ const AppMain = () => {
             path="/character-list-page"
             element={<CharacterListPage characters={characters} />}
           />
-          <Route path="/favorites" element={<Favorites characters={characters} />} />
+          <Route
+            path="/favorites"
+            element={<Favorites characters={characters} />}
+          />
         </>
       );
     } else {

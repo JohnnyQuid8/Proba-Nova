@@ -1,7 +1,8 @@
 import React from "react";
-import "../styles/main.scss";
+import "../../styles/main.scss";
+import "./_header.scss"
 import { NavLink } from "react-router-dom";
-import { LoginContext } from "../App";
+import { LoginContext } from "../../App";
 import { Divide as Hamburger } from "hamburger-react";
 
 const Header = () => {

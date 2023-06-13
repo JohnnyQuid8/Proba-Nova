@@ -1,11 +1,13 @@
 import { Modal, Button } from "antd";
-import { Character } from "../AppMain";
+import { Character } from "../../AppMain";
 import React from "react";
-import { FavoritesContext } from "../AppMain";
+import { FavoritesContext } from "../../AppMain";
+
+import style from './CharacterInfoModal.module.scss';
 
 type Props = {
   children?: React.ReactNode;
-  character: Character;
+  character?: Character;
   setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
   isModalVisible: boolean;
 };
@@ -16,6 +18,9 @@ const CharacterInfoModal = ({
   setIsModalVisible,
 }: Props) => {
   const favoritesContext = React.useContext(FavoritesContext);
+
+  if(!character) return null
+
   return (
     <Modal
       open={isModalVisible}
@@ -29,8 +34,8 @@ const CharacterInfoModal = ({
       <div>
         <img src={character.image} />
       </div>
-      <p>{character!.name}</p>
-      <p>{character!.gender}</p>
+      <p className={style.container}>{character!.name}</p>
+      <p className={`${style.aleksa} ${style.bigText}`}>{character!.gender}</p>
       <p>{character!.species}</p>
       <p>{character!.location?.name}</p>
       <Button onClick={() => favoritesContext.addFavorite(character.id)}>

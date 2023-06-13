@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Form, Input, Button } from "antd";
-import { LoginContext } from "../App";
-import "../styles/main.scss"
-
+import { LoginContext } from "../../App";
+import "../../styles/main.scss"
+import "./_loginPage.scss"
 
 const DUMMY_USERNAME = "FWW";
 const DUMMY_PASSWORD = "nikola";

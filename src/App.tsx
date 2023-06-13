@@ -2,18 +2,18 @@ import * as React from "react";
 import AppMain from "./AppMain";
 import { useNavigate } from "react-router-dom";
 
-export interface LoginContext {
+export interface LoginContextType{
   isLogedIn: boolean,
   login: () => void,
   logout: () => void,
 }
 
-const initalLogin: LoginContext = {
+const initalLogin: LoginContextType = {
   isLogedIn: false,
   login: () => {},
   logout: () => {},
 } 
-export const LoginContext = React.createContext<LoginContext>(initalLogin);
+export const LoginContext = React.createContext<LoginContextType>(initalLogin);
 
 export function App() {
   const navigate = useNavigate();
